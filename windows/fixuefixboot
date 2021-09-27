@@ -1,0 +1,27 @@
+
+Boot the computer using the Windows 10 installation media.
+- On the first screen, press SHIFT+F10 to bring up the command prompt.
+- Run the following commands at the command prompt.
+
+diskpart
+list disk
+select disk # Note: Select the disk where the EFI System partition is
+list partition
+select partition # Note: Select the EFI partition
+assign letter=s
+list volume Note: Note the volume letter where the Windows OS is installed.
+exit
+
+bcdboot X:\windows /s S:
+
+Note: Replace "X" with the volume letter of the Windows OS partition.
+S: is your EFI partition you assigned above.
+
+Once done, remove the letter S from the EFI partition.
+
+diskpart
+list disk
+select disk # Note: Select the disk where the EFI System partition is
+list partition
+select partition # Note: Select the EFI partition
+remove letter=s
